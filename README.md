@@ -1,12 +1,26 @@
-# React + Vite
+# TODO list - CTD weekly work Assignment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+This project is a TODO list as part of a weekly work assignment of the Code The Dream course.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- Home Page: A welcome message introducing the project.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Project Structure
+
+- `index.html`: Main HTML file for the site.
+- `app.css`: Custom styles for layout, typography, and visual effects.
+- `app.jsx`: Core logic for navigation and content loading.
+
+## How to Run
+
+1. **Clone the Repository**:
+   - Use `git clone https://github.com/rtejeraw/todo-list.git` in your terminal, or download the ZIP from GitHub.
+2. **Open the Project**:
+   - Navigate to the project folder and open `index.html` in a web browser.
+
+## Author
+
+- Raul Tejera (GitHub: [rtejeraw](https://github.com/rtejeraw))
