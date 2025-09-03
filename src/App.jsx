@@ -35,7 +35,8 @@ function App() {
             id: record.id,
             ...record.fields,
           };
-          if (!record.isCompleted) {
+
+          if (!todo.isCompleted) {
             todo.isCompleted = false;
           }
           return todo;
@@ -56,7 +57,6 @@ function App() {
       { title: newTodoTitle, isCompleted: false },
       null,
       (savedTodo) => {
-        console.log(savedTodo);
         setTodoList([...todoList, savedTodo]);
       }
     );
@@ -121,7 +121,7 @@ function App() {
       },
       body: JSON.stringify(payload),
     };
-    var savedTodo = null;
+    let savedTodo = null;
     try {
       setIsSaving(true);
       const resp = await fetch(url, options);
@@ -137,7 +137,6 @@ function App() {
         savedTodo.isCompleted = false;
       }
     } catch (error) {
-      console.error(error);
       setErrorMessage(error.message);
       if (revertCallback) {
         revertCallback();
