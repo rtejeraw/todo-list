@@ -1,0 +1,47 @@
+.todo-item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.todo-item:hover {
+  background-color: #653ed7;
+}
+
+.todo-item input[type='checkbox'] {
+  cursor: pointer;
+}
+
+.todo-item-editing {
+  display: flex;
+  gap: 10px;
+}
+
+.button {
+  padding: 0px 10px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.button-cancel {
+  background-color: red;
+}
+
+.button-cancel:hover {
+  background-color: darkred;
+}
+
+.button-ok {
+  background-color: green;
+}
+
+.button-ok:hover {
+  background-color: darkgreen;
+}
