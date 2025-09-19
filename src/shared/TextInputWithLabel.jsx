@@ -1,3 +1,5 @@
+import styles from './TextInputWithLabel.module.css';
+
 export function TextInputWithLabel({ elementId, label, onChange, ref, value }) {
   return (
     <>
@@ -8,6 +10,7 @@ export function TextInputWithLabel({ elementId, label, onChange, ref, value }) {
         ref={ref}
         value={value}
         onChange={onChange}
+        className={styles.input}
       />
     </>
   );
