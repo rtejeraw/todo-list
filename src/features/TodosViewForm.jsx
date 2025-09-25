@@ -1,6 +1,45 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
-import styles from './TodosViewForm.module.css';
+import styled from 'styled-components';
+
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const StyledCriteriaGroup = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  input {
+    border-radius: 6px;
+    padding: 0px 10px;
+    font-size: 16px;
+    padding: 5px;
+    border: none;
+  }
+  select {
+    border-radius: 6px;
+    padding: 0px 10px;
+    font-size: 16px;
+    padding: 5px;
+    border: none;
+  }
+  button {
+    align-self: stretch;
+    padding: 0px 10px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: green;
+    &:hover {
+      background-color: darkgreen;
+    }
+  }
+`;
 
 function preventRefresh() {}
 
@@ -22,8 +61,8 @@ function TodosViewForm({
   }, [localQueryString, setQueryString]);
 
   return (
-    <form onSubmit={() => preventRefresh()} className={styles.form}>
-      <div className={styles['criteria-group']}>
+    <StyledForm onSubmit={() => preventRefresh()}>
+      <StyledCriteriaGroup>
         <label>Search todos:</label>
         <input
           type="text"
@@ -38,9 +77,9 @@ function TodosViewForm({
         >
           Clear
         </button>
-      </div>
-      <div className={styles['criteria-group']}>
-        <div className={styles['criteria-group']}>
+      </StyledCriteriaGroup>
+      <StyledCriteriaGroup>
+        <StyledCriteriaGroup>
           <label>Sort by</label>
           <select
             value={sortField.value}
@@ -49,8 +88,8 @@ function TodosViewForm({
             <option value="title">Title</option>
             <option value="createdTime">Time added</option>
           </select>
-        </div>
-        <div className={styles['criteria-group']}>
+        </StyledCriteriaGroup>
+        <StyledCriteriaGroup>
           <label>Direction</label>
           <select
             value={sortDirection.value}
@@ -59,9 +98,9 @@ function TodosViewForm({
             <option value="asc">Ascending</option>
             <option value="desc">Descending</option>
           </select>
-        </div>
-      </div>
-    </form>
+        </StyledCriteriaGroup>
+      </StyledCriteriaGroup>
+    </StyledForm>
   );
 }
 

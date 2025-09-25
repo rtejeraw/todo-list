@@ -164,33 +164,42 @@ function App() {
   }
 
   return (
-    <div className={styles['container']}>
-      <h1>Todo List</h1>
-      <TodoForm onAddTodo={addTodo} />
-      <TodoList
-        todoList={todoList}
-        onCompleteTodo={completeTodo}
-        onUpdateTodo={updateTodo}
-        isLoading={isLoading}
-        isSaving={isSaving}
-      />
-      <hr className={styles.hr} />
-      <TodosViewForm
-        sortDirection={sortDirection}
-        setSortDirection={setSortDirection}
-        sortField={sortField}
-        setSortField={setSortField}
-        queryString={queryString}
-        setQueryString={setQueryString}
-      />
-      {!errorMessage ? (
-        <div className={styles['error-container']}>
-          <p>{errorMessage}</p>
-          <button type="button" onClick={setErrorMessage['']}>
-            Dismiss
-          </button>
+    <div className={styles['appcontainer']}>
+      <div className={styles['header']}>
+        <div className={styles['header-container']}>
+          <h1>CTD [Vite + React course]</h1>
         </div>
-      ) : null}
+      </div>
+      <div className={styles['content']}>
+        <div className={styles['container']}>
+          <h1>Todo List</h1>
+          <TodoForm onAddTodo={addTodo} />
+          <TodoList
+            todoList={todoList}
+            onCompleteTodo={completeTodo}
+            onUpdateTodo={updateTodo}
+            isLoading={isLoading}
+            isSaving={isSaving}
+          />
+          <hr className={styles.hr} />
+          <TodosViewForm
+            sortDirection={sortDirection}
+            setSortDirection={setSortDirection}
+            sortField={sortField}
+            setSortField={setSortField}
+            queryString={queryString}
+            setQueryString={setQueryString}
+          />
+          {!errorMessage ? (
+            <div className={styles['error-container']}>
+              <p>{errorMessage}</p>
+              <button type="button" onClick={setErrorMessage['']}>
+                Dismiss
+              </button>
+            </div>
+          ) : null}
+        </div>
+      </div>
     </div>
   );
 }
