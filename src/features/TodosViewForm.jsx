@@ -31,7 +31,7 @@ const StyledCriteriaGroup = styled.div`
     padding: 0px 10px;
     border: none;
     border-radius: 6px;
-    color: white;
+    color: #f0f0f0;
     cursor: pointer;
     font-size: 16px;
     background-color: green;
