@@ -1,7 +1,4 @@
-import TodoList from './features/TodoList/TodoList.jsx';
-import TodoForm from './features/TodoList/TodoForm.jsx';
-import TodosViewForm from './features/TodosViewForm.jsx';
-import { useReducer, useState } from 'react';
+import { use, useReducer, useState } from 'react';
 import { useEffect } from 'react';
 import { useCallback } from 'react';
 import styles from './App.module.css';
@@ -10,6 +7,11 @@ import {
   actions as todoActions,
   initialState as initialTodosState,
 } from './reducers/todos.reducer';
+import TodosPage from './pages/TodosPage.jsx';
+import About from './pages/About.jsx';
+import NotFound from './pages/NotFound.jsx';
+import Header from './shared/Header.jsx';
+import { Route, Routes, useLocation } from 'react-router';
 
 const url = `https://api.airtable.com/v0/${import.meta.env.VITE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`;
 const token = `Bearer ${import.meta.env.VITE_PAT}`;
@@ -17,9 +19,9 @@ const token = `Bearer ${import.meta.env.VITE_PAT}`;
 function App() {
   const [todoState, dispatch] = useReducer(todosReducer, initialTodosState);
 
-  const [sortField, setSortField] = useState(['createdTime']);
-  const [sortDirection, setSortDirection] = useState(['desc']);
-  const [queryString, setQueryString] = useState(['']);
+  const [sortField, setSortField] = useState('createdTime');
+  const [sortDirection, setSortDirection] = useState('desc');
+  const [queryString, setQueryString] = useState('');
 
   const encodeUrl = useCallback(() => {
     let sortQuery = `sort[0][field]=${sortField}&sort[0][direction]=${sortDirection}`;
@@ -29,6 +31,22 @@ function App() {
     }
     return encodeURI(`${url}?${sortQuery}${searchQuery}`);
   }, [sortField, sortDirection, queryString]);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    switch (location.pathname) {
+      case '/':
+        dispatch({ type: todoActions.changeLocation, pathName: 'Todo List' });
+        break;
+      case '/about':
+        dispatch({ type: todoActions.changeLocation, pathName: 'About' });
+        break;
+      default:
+        dispatch({ type: todoActions.changeLocation, pathName: 'Not Found' });
+        break;
+    }
+  }, [location]);
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -119,46 +137,43 @@ function App() {
       dispatch({ type: todoActions.endRequest });
     }
   }
-
   return (
-    <div className={styles['appcontainer']}>
-      <div className={styles['header']}>
-        <div className={styles['header-container']}>
-          <h1>CTD [Vite + React course]</h1>
-        </div>
-      </div>
-      <div className={styles['content']}>
-        <div className={styles['container']}>
-          <h1>Todo List</h1>
-          <TodoForm onAddTodo={addTodo} />
-          <TodoList
-            todoList={todoState.todoList}
-            onCompleteTodo={completeTodo}
-            onUpdateTodo={updateTodo}
-            isLoading={todoState.isLoading}
-            isSaving={todoState.isSaving}
+    <div className={styles['content']}>
+      <Header title={todoState.pathName} />
+      <div className={styles['container']}>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <TodosPage
+                todoState={todoState}
+                addTodo={addTodo}
+                completeTodo={completeTodo}
+                updateTodo={updateTodo}
+                sortDirection={sortDirection}
+                setSortDirection={setSortDirection}
+                sortField={sortField}
+                setSortField={setSortField}
+                queryString={queryString}
+                setQueryString={setQueryString}
+              />
+            }
           />
-          <hr className={styles.hr} />
-          <TodosViewForm
-            sortDirection={sortDirection}
-            setSortDirection={setSortDirection}
-            sortField={sortField}
-            setSortField={setSortField}
-            queryString={queryString}
-            setQueryString={setQueryString}
-          />
-          {todoState.errorMessage !== '' ? (
-            <div className={styles['error-container']}>
-              <p>{todoState.errorMessage}</p>
-              <button
-                type="button"
-                onClick={() => dispatch({ type: todoActions.clearError })}
-              >
-                Dismiss
-              </button>
-            </div>
-          ) : null}
-        </div>
+          <Route path="/about" element={<About />} />
+          <Route path="/*" element={<NotFound />} />
+        </Routes>
+
+        {todoState.errorMessage !== '' ? (
+          <div className={styles['error-container']}>
+            <p>{todoState.errorMessage}</p>
+            <button
+              type="button"
+              onClick={() => dispatch({ type: todoActions.clearError })}
+            >
+              Dismiss
+            </button>
+          </div>
+        ) : null}
       </div>
     </div>
   );

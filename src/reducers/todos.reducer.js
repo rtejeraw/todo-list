@@ -3,6 +3,7 @@ const initialState = {
   isLoading: false,
   isSaving: false,
   errorMessage: '',
+  pathName: '',
 };
 
 const actions = {
@@ -22,6 +23,7 @@ const actions = {
   revertTodo: 'revertTodo',
   // action on Dismiss Error button
   clearError: 'clearError',
+  changeLocation: 'changeLocation',
 };
 
 function reducer(state = initialState, action) {
@@ -89,6 +91,8 @@ function reducer(state = initialState, action) {
         isSaving: false,
       };
     }
+    case actions.changeLocation:
+      return { ...state, pathName: action.pathName };
     default:
       return state;
   }
